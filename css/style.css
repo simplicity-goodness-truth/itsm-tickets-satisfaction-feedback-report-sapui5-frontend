@@ -1,0 +1,9 @@
+tr[data-hierarchy='1']{
+  background: #DDE8F1!important;
+}
+tr[data-hierarchy='2']{
+  background: #DFDFDF!important;
+}
+tr[data-hierarchy='3']{
+  background: #f2f5d4!important;
+}

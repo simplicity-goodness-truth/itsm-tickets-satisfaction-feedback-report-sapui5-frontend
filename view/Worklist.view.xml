@@ -1,0 +1,77 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" xmlns:footerbar="sap.ushell.ui.footerbar"
+  xmlns:core="sap.ui.core" controllerName="ZACBACSMGREP.controller.Worklist" xmlns:fb="sap.ui.comp.filterbar">
+  <fb:FilterBar reset="onReset" showRestoreButton="true" showClearButton="true" search="onSearch">
+    <fb:filterGroupItems>
+      <fb:FilterGroupItem groupName="tableFilters1" name="A" partOfCurrentVariant="true" visibleInFilterBar="true"
+        label="{i18n>organizationalUnit}">
+        <fb:control>
+          <MultiInput width="70%" id="multiInput" suggestionItems="{ path: '/DivisionSet', sorter: { path: 'OrgUnitName' } }" showValueHelp="false">
+            <core:Item key="{OrgUnit}" text="{OrgUnitName}"/>
+          </MultiInput>
+        </fb:control>
+      </fb:FilterGroupItem>
+      <fb:FilterGroupItem groupName="tableFilters2" name="A" partOfCurrentVariant="true" visibleInFilterBar="true" label="{i18n>reportingPeriod}">
+        <fb:control>
+          <DateRangeSelection id="DateRangeSelector" change="handleDateRangeChange" width="auto"/>
+        </fb:control>
+      </fb:FilterGroupItem>
+    </fb:filterGroupItems>
+  </fb:FilterBar>
+  <semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+    <semantic:titleHeading>
+      <Title text="{i18n>worklistTitle}"/>
+      <Button id="ShowGraph" text="{i18n>showGraph}" press="onShowGraphPress" icon="sap-icon://bar-chart"/>
+    </semantic:titleHeading>
+    <semantic:content>
+      <Table id="table" width="auto" items="{ path: '/DivisionSet'}" noDataText="{worklistView>/tableNoDataText}"
+        busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateStarted="onUpdateStarted"
+        updateFinished="onUpdateFinished">
+        <headerToolbar></headerToolbar>
+        <columns>
+          <Column id="nameColumn">
+            <Text text="{i18n>organizationalUnit}" id="nameColumnTitle"/>
+          </Column>
+          <Column id="rating1column" hAlign="End">
+            <Text text="{i18n>rating1}" id="rating1"/>
+          </Column>
+          <Column id="rating2column" hAlign="End">
+            <Text text="{i18n>rating2}" id="rating2"/>
+          </Column>
+          <Column id="rating3column" hAlign="End">
+            <Text text="{i18n>rating3}" id="rating3"/>
+          </Column>
+          <Column id="rating4column" hAlign="End">
+            <Text text="{i18n>rating4}" id="rating4"/>
+          </Column>
+          <Column id="rating5column" hAlign="End">
+            <Text text="{i18n>rating5}" id="rating5"/>
+          </Column>
+          <Column id="openItemsColumn" hAlign="End">
+            <Text text="{i18n>openItems}" id="openItems"/>
+          </Column>
+          <Column id="avgRatingColumn" hAlign="End">
+            <Text text="{i18n>avgRating}" id="avgRating"/>
+          </Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Navigation" press="onPress">
+            <customData>
+              <core:CustomData key="hierarchy" value="{Hierarchy}" writeToDom="true"/>
+            </customData>
+            <cells>
+              <ObjectIdentifier title="{OrgUnitName}"/>
+              <ObjectIdentifier title="{Rating1count}"/>
+              <ObjectIdentifier title="{Rating2count}"/>
+              <ObjectIdentifier title="{Rating3count}"/>
+              <ObjectIdentifier title="{Rating4count}"/>
+              <ObjectIdentifier title="{Rating5count}"/>
+              <ObjectIdentifier title="{OpenItems}"/>
+              <ObjectIdentifier
+                title="{ path: 'AvgRating', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2, roundingMode: 'away_from_zero' } }"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </semantic:content>
+  </semantic:SemanticPage>
+</mvc:View>
